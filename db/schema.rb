@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20161006155742) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "authors", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -25,8 +28,8 @@ ActiveRecord::Schema.define(version: 20161006155742) do
     t.integer  "publisher_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
-    t.index ["author_id"], name: "index_books_on_author_id"
-    t.index ["publisher_id"], name: "index_books_on_publisher_id"
+    t.index ["author_id"], name: "index_books_on_author_id", using: :btree
+    t.index ["publisher_id"], name: "index_books_on_publisher_id", using: :btree
   end
 
   create_table "publishers", force: :cascade do |t|
@@ -50,8 +53,8 @@ ActiveRecord::Schema.define(version: 20161006155742) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
 end
